@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="org.astore.Utilities.ExtentReportManager"/>
+    </listeners>
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/Luyanda.Nene/Intellij Projects/A_Store_API_Automation/src/test/java/org/astore/Tests">
+        <classes>
+            <class name="org.astore.Tests.AdminTest">
+                <methods>
+                    <include name="verifyRestrictedResource"/>
+                    <include name="registerAdminTest"/>
+                    <include name="verifyDuplicateRegistration"/>
+                    <include name="verifyEmptyUsername"/>
+                    <include name="verifySuccessfulLogin"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
