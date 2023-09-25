@@ -1,5 +1,6 @@
 package org.astore.Tests;
 
+import io.restassured.http.Cookies;
 import io.restassured.response.Response;
 import org.astore.Requests.Admin;
 
@@ -12,14 +13,23 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class AdminTest extends BaseTest {
 
+    public static Cookies cookies;
+
     public static String firstName;
     public static String lastName;
     public static String username;
     public static String password;
+    public static String cellphoneNum;
 
-    @Test(description = "Verify that the restricted resource can be accessed", dependsOnMethods = "verifySuccessfulLogin")
+    @Test(description = "Verify that the restricted resource can be accessed", priority = 2)
     public static void verifyRestrictedResource() {
-        Response restrictedResponse = Admin.restricted();
+
+        if (cookies == null || cookies.size() == 0){
+            throw new RuntimeException("Login cookies not available.");
+        }
+
+        Response restrictedResponse = Admin.restricted(cookies);
+
         System.out.println(restrictedResponse.getStatusCode());
         restrictedResponse.prettyPrint();
         restrictedResponse.then()
@@ -38,7 +48,8 @@ public class AdminTest extends BaseTest {
         adminData.put("username", username);
         password = DataGeneratorUtils.generatePassword(4, 7);
         adminData.put("password", password);
-        adminData.put("phone", "791369397"); // Ensure phone is a string
+        cellphoneNum = DataGeneratorUtils.generateSouthAfricanCellphoneNumber();
+        adminData.put("phone", cellphoneNum); // Ensure phone is a string
 
         System.out.println(username);
         System.out.println(password);
@@ -62,7 +73,7 @@ public class AdminTest extends BaseTest {
         adminData.put("lastName", lastName);
         adminData.put("username", username);
         adminData.put("password", password);
-        adminData.put("phone", "0791368397");
+        adminData.put("phone", cellphoneNum);
 
         Response registerResponse = Admin.registerAdmin(adminData.toString());
 
@@ -84,7 +95,7 @@ public class AdminTest extends BaseTest {
         adminData.put("lastName", lastName);
         adminData.put("username", "");
         adminData.put("password", password);
-        adminData.put("phone", "0791369397");
+        adminData.put("phone", cellphoneNum);
 
         Response registerResponse = Admin.registerAdmin(adminData.toString());
 
@@ -97,7 +108,7 @@ public class AdminTest extends BaseTest {
 
     }
 
-    @Test(description = "Verify that the admin can be logged in", dependsOnMethods = "registerAdminTest")
+    @Test(description = "Verify that the admin can be logged in", dependsOnMethods = "registerAdminTest", priority = 1)
     public static void verifySuccessfulLogin(){
         JSONObject loginData = new JSONObject();
         loginData.put("username", username);
@@ -110,6 +121,8 @@ public class AdminTest extends BaseTest {
                 .log().body()
                 .assertThat().statusCode(200)
                 .assertThat().body("role", equalTo("admin"));
+
+        cookies = loginResponse.detailedCookies();
     }
 
 }
