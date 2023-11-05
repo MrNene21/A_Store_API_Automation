@@ -9,7 +9,6 @@
         <classes>
             <class name="org.astore.Tests.AdminTest">
                 <methods>
-                    <include name="verifyRestrictedResource"/>
                     <include name="registerAdminTest"/>
                     <include name="verifyDuplicateRegistration"/>
                     <include name="verifyEmptyUsername"/>

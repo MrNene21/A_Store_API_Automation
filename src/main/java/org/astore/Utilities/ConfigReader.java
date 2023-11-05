@@ -28,4 +28,12 @@ public class ConfigReader {
     public static String getBaseURI() {
         return properties.getProperty("baseURI");
     }
+
+    public static String getAdminRegisterEndPoint(){
+        return properties.getProperty("admin.register");
+    }
+
+    public static String getAdminLoginEndPoint(){
+        return properties.getProperty("admin.login");
+    }
 }

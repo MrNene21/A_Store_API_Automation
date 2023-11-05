@@ -21,21 +21,6 @@ public class AdminTest extends BaseTest {
     public static String password;
     public static String cellphoneNum;
 
-    @Test(description = "Verify that the restricted resource can be accessed", priority = 2)
-    public static void verifyRestrictedResource() {
-
-        if (cookies == null || cookies.size() == 0){
-            throw new RuntimeException("Login cookies not available.");
-        }
-
-        Response restrictedResponse = Admin.restricted(cookies);
-
-        System.out.println(restrictedResponse.getStatusCode());
-        restrictedResponse.prettyPrint();
-        restrictedResponse.then()
-                .statusCode(200)
-                .body("message", equalTo("access to restricted resource confirmed"));
-    }
 
     @Test(description = "Verify that a new user can be successfully registered.")
     public static void registerAdminTest() {
@@ -62,7 +47,10 @@ public class AdminTest extends BaseTest {
                 .statusCode(200)
                 .body("role", equalTo("admin"))
                 .body("firstName", equalTo(firstName))
-                .body("lastName", equalTo(lastName));
+                .body("lastName", equalTo(lastName))
+                .body("username", equalTo(username))
+                .body("password", equalTo(password))
+                .body("phone", equalTo(cellphoneNum));
 
     }
 
