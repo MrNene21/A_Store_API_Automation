@@ -4,9 +4,11 @@ import com.beust.ah.A;
 import io.restassured.http.Cookies;
 import io.restassured.response.Response;
 import org.astore.Requests.Admin;
+import org.astore.Utilities.APILogger;
 import org.astore.Utilities.DataGeneratorUtils;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static java.util.function.Predicate.not;
@@ -24,6 +26,10 @@ public class AdminTest extends BaseTest {
     public static String email;
     private static String accessToken;
 
+    @BeforeClass
+    public void setUp() {
+        APILogger.setTest(getTest());
+    }
 
     @Test(description = "Verify that a new user can be successfully registered.")
     public static void registerAdminTest() {
@@ -169,7 +175,6 @@ public class AdminTest extends BaseTest {
                 .body("phone", equalTo(cellphoneNum))
                 .body("email", equalTo(email));
     }
-
 
 
 }

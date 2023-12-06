@@ -15,7 +15,7 @@ public class ExtentReportManager implements ITestListener{
 
     public ExtentSparkReporter sparkReporter;
     public ExtentReports extent;
-    public ExtentTest test;
+    public static ExtentTest test;
     String repName;
 
     public void onStart(ITestContext testContext) {
@@ -37,19 +37,16 @@ public class ExtentReportManager implements ITestListener{
     public void onTestStart(ITestResult result) {
         test = extent.createTest(result.getMethod().getDescription()); // Use description as test name
         test.assignCategory(result.getMethod().getGroups());
+
+        // Set the current test for logging
+        APILogger.setTest(test);
     }
 
     public void onTestSuccess(ITestResult result) {
-        test = extent.createTest(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
-        test.createNode(result.getName());
         test.log(Status.PASS, "Test Passed");
     }
 
     public void onTestFailure(ITestResult result) {
-        test = extent.createTest(result.getName());
-        test.createNode(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
         test.log(Status.FAIL, "Test Failed");
         test.log(Status.FAIL, result.getThrowable().getMessage());
     }

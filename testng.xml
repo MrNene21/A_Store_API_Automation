@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="A_Store_API_Test_Suite">
     <listeners>
         <listener class-name="org.astore.Utilities.ExtentReportManager"/>
     </listeners>
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/Luyanda.Nene/Intellij Projects/A_Store_API_Automation/src/test/java/org/astore/Tests">
+
+    <test name="AdminTestSuite" verbose="1" preserve-order="true">
         <classes>
             <class name="org.astore.Tests.AdminTest">
                 <methods>
@@ -13,8 +12,15 @@
                     <include name="verifyDuplicateRegistration"/>
                     <include name="verifyEmptyUsername"/>
                     <include name="verifySuccessfulLogin"/>
+                    <include name="verifyUnsuccessfulLoginWithoutUsername"/>
+                    <include name="verifyUnsuccessfulLoginWithIncorrectUsername"/>
+                    <include name="retrieveUserDetailsTest"/>
                 </methods>
             </class>
+            <!-- Add more test classes as needed -->
         </classes>
     </test>
+
+    <!-- Add more <test> elements for additional test suites -->
+
 </suite>
