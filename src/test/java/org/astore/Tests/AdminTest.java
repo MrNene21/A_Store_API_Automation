@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -51,7 +52,7 @@ public class AdminTest extends BaseTest {
         cellphoneNum = DataGeneratorUtils.generateSouthAfricanCellphoneNumber();
         adminData.put("phone", cellphoneNum); // Ensure phone is a string
         email = DataGeneratorUtils.generateEmailAddress();
-        adminData.put("email", email);
+        //adminData.put("email", email);
 
         Response registerResponse = Admin.registerAdmin(adminData.toString());
 
@@ -85,7 +86,7 @@ public class AdminTest extends BaseTest {
     }
 
     @Test(description = "Verify a user cannot register without providing a username", priority = 3)
-    public static void verifyEmptyUsername() {
+    public static void registerWithoutUsername() {
 
         JSONObject adminData = new JSONObject();
         firstName = DataGeneratorUtils.generateFirstName();
@@ -110,6 +111,54 @@ public class AdminTest extends BaseTest {
                 .body("name", equalTo("MissingUsernameError"))
                 .body("message", equalTo("Missing username"));
 
+    }
+
+    @Test(description = "Verify a user cannot register without providing a password.")
+    public static void registerWithoutPassword() {
+        JSONObject adminData = new JSONObject();
+        firstName = DataGeneratorUtils.generateFirstName();
+        adminData.put("firstName", firstName);
+        lastName = DataGeneratorUtils.generateLastName();
+        adminData.put("lastName", lastName);
+        username = DataGeneratorUtils.generateEmailAddress();
+        adminData.put("username", username);
+        cellphoneNum = DataGeneratorUtils.generateSouthAfricanCellphoneNumber();
+        adminData.put("phone", cellphoneNum);
+        email = DataGeneratorUtils.generateEmailAddress();
+        adminData.put("email", email);
+
+        Response registerResponse = Admin.registerAdmin(adminData.toString());
+
+
+        registerResponse.then()
+                .log().status()
+                .log().body()
+                .statusCode(400)
+                .body("name", equalTo("MissingPasswordError"))
+                .body("message", equalTo("Password is required"));
+    }
+
+    @Test(description = "Verify a user cannot register without providing an email.")
+    public static void registerWithoutEmail() {
+        JSONObject adminData = new JSONObject();
+        firstName = DataGeneratorUtils.generateFirstName();
+        adminData.put("firstName", firstName);
+        lastName = DataGeneratorUtils.generateLastName();
+        adminData.put("lastName", lastName);
+        username = DataGeneratorUtils.generateEmailAddress();
+        adminData.put("username", username);
+        password = DataGeneratorUtils.generatePassword(4, 7);
+        adminData.put("password", password);
+        cellphoneNum = DataGeneratorUtils.generateSouthAfricanCellphoneNumber();
+        adminData.put("phone", cellphoneNum); // Ensure phone is a string
+
+        Response registerResponse = Admin.registerAdmin(adminData.toString());
+
+        registerResponse.then()
+                .log().status()
+                .log().body()
+                .statusCode(400)
+                .body("message", equalTo("Email is required."));
     }
 
     @Test(description = "Verify that an admin can be logged in")
