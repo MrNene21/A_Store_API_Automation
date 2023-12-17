@@ -40,4 +40,29 @@ public class ConfigReader {
     public static String getAdminUserDetails(){
         return properties.getProperty("admin.userDetails");
     }
+
+    public static String getUserName(){
+        return  properties.getProperty("username");
+    }
+
+    public static String getPassword(){
+        return  properties.getProperty("password");
+    }
+
+    public static String getFirstName(){
+        return  properties.getProperty("firstName");
+    }
+
+    public static String getLastName(){
+        return  properties.getProperty("lastName");
+    }
+
+    public static String getPhone(){
+        return  properties.getProperty("phone");
+    }
+
+    public static String getEmail(){
+        return  properties.getProperty("email");
+    }
+
 }

@@ -1,7 +1,6 @@
 package org.astore.Requests;
 
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
 import io.restassured.response.Response;
 import org.astore.Utilities.APILogger;
 
@@ -20,7 +19,7 @@ public class Admin {
                     .contentType(ContentType.JSON) // Set the content type of the request
                     .body(adminData) // Set the request body as a Map
 
-                    .when().post(ADMIN_REGSISTER); // Specify the endpoint for the POST request);
+                    .when().post(ADMIN_REGISTER); // Specify the endpoint for the POST request);
 
             // Log the response details
             APILogger.logResponse(response);
