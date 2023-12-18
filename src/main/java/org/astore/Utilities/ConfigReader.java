@@ -37,8 +37,12 @@ public class ConfigReader {
         return properties.getProperty("admin.login");
     }
 
-    public static String getAdminUserDetails(){
+    public static String getAdminUserDetailsEndpoint(){
         return properties.getProperty("admin.userDetails");
+    }
+
+    public static String getCreateCategoryEndPoint(){
+        return properties.getProperty("category.create");
     }
 
     public static String getUserName(){

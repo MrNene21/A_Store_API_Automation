@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -24,10 +23,8 @@ public class AdminTest extends BaseTest {
     public static String password;
     public static String cellphoneNum;
     public static String email;
-    private static String accessToken;
-
-    private static final String EXPECTED_USERNAME = ConfigReader.getUserName();
-    private static final String EXPECTED_PASSWORD = ConfigReader.getPassword();
+    static final String EXPECTED_USERNAME = ConfigReader.getUserName();
+    static final String EXPECTED_PASSWORD = ConfigReader.getPassword();
     private static final String EXPECTED_FIRST_NAME = ConfigReader.getFirstName();
     private static final String EXPECTED_LAST_NAME = ConfigReader.getLastName();
     private static final String EXPECTED_PHONE_NUM = ConfigReader.getPhone();
@@ -52,7 +49,7 @@ public class AdminTest extends BaseTest {
         cellphoneNum = DataGeneratorUtils.generateSouthAfricanCellphoneNumber();
         adminData.put("phone", cellphoneNum); // Ensure phone is a string
         email = DataGeneratorUtils.generateEmailAddress();
-        //adminData.put("email", email);
+        adminData.put("email", email);
 
         Response registerResponse = Admin.registerAdmin(adminData.toString());
 
@@ -161,36 +158,36 @@ public class AdminTest extends BaseTest {
                 .body("message", equalTo("Email is required."));
     }
 
-    @Test(description = "Verify that an admin can be logged in")
-    public static void verifySuccessfulLogin() {
-        JSONObject loginData = new JSONObject();
-        loginData.put("username", EXPECTED_USERNAME);
-        loginData.put("password", EXPECTED_PASSWORD);
-
-        Response loginResponse = Admin.loginAdmin(loginData.toString());
-
-        if (loginResponse.getStatusCode() == 401) {
-            System.out.println("Login failed (database cleanup) - running registration and getting new credentials");
-            // Login failed, so run registration and get new credentials
-            registerAdminTest();
-            // Update loginData with the new credentials
-            loginData.put("username", username);
-            loginData.put("password", password);
-            // Retry login
-            loginResponse = Admin.loginAdmin(loginData.toString());
-        }
-
-        // Continue with assertions for successful login
-        accessToken = loginResponse.then().extract().path("access_token");
-        loginResponse.then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("success", equalTo(true))
-                .body("access_token" , Matchers.not(emptyString()));
-
-        cookies = loginResponse.detailedCookies();
-    }
+//    @Test(description = "Verify that an admin can be logged in")
+//    public static void verifySuccessfulLogin() {
+//        JSONObject loginData = new JSONObject();
+//        loginData.put("username", EXPECTED_USERNAME);
+//        loginData.put("password", EXPECTED_PASSWORD);
+//
+//        Response loginResponse = Admin.loginAdmin(loginData.toString());
+//
+//        if (loginResponse.getStatusCode() == 401) {
+//            System.out.println("Login failed (database cleanup) - running registration and getting new credentials");
+//            // Login failed, so run registration and get new credentials
+//            registerAdminTest();
+//            // Update loginData with the new credentials
+//            loginData.put("username", username);
+//            loginData.put("password", password);
+//            // Retry login
+//            loginResponse = Admin.loginAdmin(loginData.toString());
+//        }
+//
+//        // Continue with assertions for successful login
+//        accessToken = loginResponse.then().extract().path("access_token");
+//        loginResponse.then()
+//                .log().status()
+//                .log().body()
+//                .statusCode(200)
+//                .body("success", equalTo(true))
+//                .body("access_token" , Matchers.not(emptyString()));
+//
+//        cookies = loginResponse.detailedCookies();
+//    }
 
 
     @Test(description = "Verify that an admin cannot be logged in without specifying the username")
@@ -222,7 +219,7 @@ public class AdminTest extends BaseTest {
                 .body(equalTo("Unauthorized"));
     }
 
-    @Test(description = "Retrieve user details using the access token.", dependsOnMethods = "verifySuccessfulLogin")
+    @Test(description = "Retrieve user details using the access token.")
     public static void retrieveUserDetailsTest(){
         //check if the access token if available
         if (accessToken == null){
@@ -269,6 +266,4 @@ public class AdminTest extends BaseTest {
                 .statusCode(401)
                 .body("message", equalTo("You are not authenticated for this request"));
     }
-
-
 }
