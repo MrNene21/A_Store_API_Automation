@@ -52,4 +52,19 @@ public class CategoryTest extends BaseTest {
                 .body("children.flatten().findAll { it.parentId == '" + parentId + "' }", everyItem(hasEntry("parentId", parentId)))
                 .body("children.flatten().findAll { it.parentId == '" + parentId + "' }.name", hasItem(subCategory));
     }
+
+    @Test(description = "Verify that a user cannot create a category while having an invalid access token.")
+    public static void createParentCategoryWithInvalidAccessToken() {
+        JSONObject categoryData = new JSONObject();
+        parentCategory = DataGeneratorUtils.generateCategoryBookGenre();
+        categoryData.put("name", parentCategory);
+
+        Response createParentCategoryResponse = Category.createCategory(categoryData.toString(), "InvalidAccessToken1245");
+
+        createParentCategoryResponse.then()
+                .log().status()
+                .log().body()
+                .statusCode(401)
+                .body("message", equalTo("You are not authenticated for this request"));
+    }
 }
