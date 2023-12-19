@@ -8,7 +8,7 @@ import org.astore.Utilities.APILogger;
 import static io.restassured.RestAssured.given;
 import static org.astore.Endpoints.EndPoints.CATEGORY_CREATE;
 
-public class Category extends BaseTest {
+public class Category {
 
     public static Response createCategory(String categoryData, String accessToken){
         try{

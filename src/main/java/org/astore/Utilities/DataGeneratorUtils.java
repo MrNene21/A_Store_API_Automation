@@ -1,10 +1,7 @@
 package org.astore.Utilities;
 
 import com.github.javafaker.Faker;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -179,6 +176,14 @@ public class DataGeneratorUtils {
         }
 
         return numberBuilder.toString();
+    }
+
+    public static String generateCategoryBookGenre(){
+        return faker.book().genre();
+    }
+
+    public static String generateSubCategoryBookTitle(){
+        return faker.book().title();
     }
 
 
