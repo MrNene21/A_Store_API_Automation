@@ -3,7 +3,10 @@ package org.astore.Tests;
 import io.restassured.response.Response;
 import org.astore.Requests.Category;
 import org.astore.Utilities.DataGeneratorUtils;
+import org.hamcrest.Matchers;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -66,5 +69,22 @@ public class CategoryTest extends BaseTest {
                 .log().body()
                 .statusCode(401)
                 .body("message", equalTo("You are not authenticated for this request"));
+    }
+
+    @Test(description = "Verify that a single parent category can be created after its creation", dependsOnMethods = "createParentCategory")
+    public static void deleteParentCategory(){
+        JSONArray categoryArray = new JSONArray();
+        JSONObject categoryData = new JSONObject();
+        categoryData.put("_id", parentId);
+        categoryArray.put(categoryData);
+
+        Response deleteCategoryResponse = Category.deleteCategory(categoryArray.toString(), accessToken);
+
+        deleteCategoryResponse.then()
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .body("_parentId", not(parentId))
+                .body("name", not(parentCategory));
     }
 }

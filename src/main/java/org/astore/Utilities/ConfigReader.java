@@ -45,6 +45,10 @@ public class ConfigReader {
         return properties.getProperty("category.create");
     }
 
+    public static String getDeleteCategoryEndPoint(){
+        return properties.getProperty("category.delete");
+    }
+
     public static String getUserName(){
         return  properties.getProperty("username");
     }
