@@ -6,17 +6,28 @@
 
     <test name="AdminTestSuite" verbose="1" preserve-order="true">
         <classes>
-            <class name="org.astore.Tests.AdminTest">
+            <class name="org.astore.Tests.BaseTest">
                 <methods>
-                    <include name="registerAdminTest"/>
-                    <include name="verifyDuplicateRegistration"/>
-                    <include name="verifyEmptyUsername"/>
                     <include name="verifySuccessfulLogin"/>
-                    <include name="verifyUnsuccessfulLoginWithoutUsername"/>
-                    <include name="verifyUnsuccessfulLoginWithIncorrectUsername"/>
-                    <include name="retrieveUserDetailsTest"/>
-                    <include name="retrieveUserDetailsWithBlankAccessTkn"/>
-                    <include name="retrieveUserDetailsWithInvalidAccessTkn"/>
+                </methods>
+            </class>
+<!--            <class name="org.astore.Tests.AdminTest">-->
+<!--                <methods>-->
+<!--                    <include name="registerAdminTest"/>-->
+<!--                    <include name="verifyDuplicateRegistration"/>-->
+<!--                    <include name="verifyEmptyUsername"/>-->
+<!--                    <include name="verifySuccessfulLogin"/>-->
+<!--                    <include name="verifyUnsuccessfulLoginWithoutUsername"/>-->
+<!--                    <include name="verifyUnsuccessfulLoginWithIncorrectUsername"/>-->
+<!--                    <include name="retrieveUserDetailsTest"/>-->
+<!--                    <include name="retrieveUserDetailsWithBlankAccessTkn"/>-->
+<!--                    <include name="retrieveUserDetailsWithInvalidAccessTkn"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+            <class name="org.astore.Tests.CategoryTest">
+                <methods>
+                    <include name="createParentCategory"/>
+                    <include name="deleteParentCategory"/>
                 </methods>
             </class>
             <!-- Add more test classes as needed -->

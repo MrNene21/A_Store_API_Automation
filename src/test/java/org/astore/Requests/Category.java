@@ -6,7 +6,9 @@ import org.astore.Tests.BaseTest;
 import org.astore.Utilities.APILogger;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 import static org.astore.Endpoints.EndPoints.CATEGORY_CREATE;
+import static org.astore.Endpoints.EndPoints.CATEGORY_DELETE;
 
 public class Category {
 
@@ -28,6 +30,25 @@ public class Category {
         catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("Failed to create category: " + e.getMessage());
+        }
+    }
+
+    public static Response deleteCategory(String categoryData, String accessToken){
+        try {
+            APILogger.logRequest(categoryData);
+            Response response = given()
+                    .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer " + accessToken)
+                    .body(categoryData)
+
+                    .when().delete(CATEGORY_DELETE);
+            APILogger.logResponse(response);
+
+            return response;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("Failed to delete category: " + e.getMessage());
         }
     }
 }
