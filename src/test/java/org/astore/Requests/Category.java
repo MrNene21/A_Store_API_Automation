@@ -7,8 +7,7 @@ import org.astore.Utilities.APILogger;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
-import static org.astore.Endpoints.EndPoints.CATEGORY_CREATE;
-import static org.astore.Endpoints.EndPoints.CATEGORY_DELETE;
+import static org.astore.Endpoints.EndPoints.*;
 
 public class Category {
 
@@ -49,6 +48,22 @@ public class Category {
         catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("Failed to delete category: " + e.getMessage());
+        }
+    }
+
+    public static Response retrieveCategories(){
+        try {
+            Response response = given()
+                    .contentType(ContentType.JSON)
+                    .when().get(CATEGORY_RETURN);
+
+            APILogger.logResponse(response);
+
+            return response;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("Failed to retrieve categories: " + e.getMessage());
         }
     }
 }

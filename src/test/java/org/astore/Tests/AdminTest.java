@@ -257,8 +257,7 @@ public class AdminTest extends BaseTest {
     @Test(description = "Retrieve user details using an invalid access token")
     public static void retrieveUserDetailsWithInvalidAccessTkn(){
 
-        //use the access token to retrieve user details
-        Response userDetailsResponse = Admin.retrieveUserDetails("eywdjwdjwhdjghdghjgbg23gdjbdjbdwuh1112nmjsbjcnbjcbj");
+         Response userDetailsResponse = Admin.retrieveUserDetails("eywdjwdjwhdjghdghjgbg23gdjbdjbdwuh1112nmjsbjcnbjcbj");
 
         userDetailsResponse.then()
                 .log().status()

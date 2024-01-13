@@ -9,4 +9,6 @@ public class EndPoints {
     public static final String ADMIN_USER_DETAILS = ConfigReader.getAdminUserDetailsEndpoint();
     public static final String CATEGORY_CREATE = ConfigReader.getCreateCategoryEndPoint();
     public static final String CATEGORY_DELETE = ConfigReader.getDeleteCategoryEndPoint();
+    public static final String CATEGORY_RETURN = ConfigReader.getReturnCategoryEndPoint();
+    public static final String PRODUCT_CREATE = ConfigReader.getCreateProductEndPoint();
 }

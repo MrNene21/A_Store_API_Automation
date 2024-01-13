@@ -1,6 +1,7 @@
 package org.astore.Utilities;
 
 import com.github.javafaker.Faker;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +14,22 @@ public class DataGeneratorUtils {
     private static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int MIN_LENGTH = 3;
 
+    public static String generateAlphaNumericCharacters(int minLength, int maxLength) {
+        if (minLength < 0 || maxLength < 0 || minLength > maxLength) {
+            throw new IllegalArgumentException("Invalid input parameters");
+        }
+
+        Random random = new Random();
+        int stringLength = random.nextInt(maxLength - minLength + 1) + minLength;
+        StringBuilder randomString = new StringBuilder();
+
+        for (int i = 0; i < stringLength; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            randomString.append(CHARACTERS.charAt(index));
+        }
+
+        return randomString.toString();
+    }
 
     public static String generatePassword(int minChars, int maxChars) {
         Random random = new Random();
@@ -178,11 +195,11 @@ public class DataGeneratorUtils {
         return numberBuilder.toString();
     }
 
-    public static String generateCategoryBookGenre(){
+    public static String generateCategoryBookGenre() {
         return faker.book().genre();
     }
 
-    public static String generateSubCategoryBookTitle(){
+    public static String generateSubCategoryBookTitle() {
         return faker.book().title();
     }
 

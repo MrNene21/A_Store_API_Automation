@@ -1,18 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="A_Store_API_Test_Suite">
+<suite name="AdminSuite">
     <listeners>
         <listener class-name="org.astore.Utilities.ExtentReportManager"/>
     </listeners>
 
     <test name="AdminTestSuite" verbose="1" preserve-order="true">
         <classes>
-            <class name="org.astore.Tests.BaseTest">
-                <methods>
-                    <include name="verifySuccessfulLogin"/>
-                </methods>
-            </class>
-<!--            <class name="org.astore.Tests.AdminTest">-->
+            <class name="org.astore.Tests.AdminTest">
 <!--                <methods>-->
+<!--                    &lt;!&ndash; Include admin-related test methods &ndash;&gt;-->
 <!--                    <include name="registerAdminTest"/>-->
 <!--                    <include name="verifyDuplicateRegistration"/>-->
 <!--                    <include name="verifyEmptyUsername"/>-->
@@ -23,17 +19,7 @@
 <!--                    <include name="retrieveUserDetailsWithBlankAccessTkn"/>-->
 <!--                    <include name="retrieveUserDetailsWithInvalidAccessTkn"/>-->
 <!--                </methods>-->
-<!--            </class>-->
-            <class name="org.astore.Tests.CategoryTest">
-                <methods>
-                    <include name="createParentCategory"/>
-                    <include name="deleteParentCategory"/>
-                </methods>
             </class>
-            <!-- Add more test classes as needed -->
         </classes>
     </test>
-
-    <!-- Add more <test> elements for additional test suites -->
-
 </suite>

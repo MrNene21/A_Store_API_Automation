@@ -49,6 +49,16 @@ public class ConfigReader {
         return properties.getProperty("category.delete");
     }
 
+    public static String getReturnCategoryEndPoint(){
+        return properties.getProperty("category.return");
+    }
+
+    public static String getCreateProductEndPoint(){
+        return properties.getProperty("product.return");
+    }
+
+
+
     public static String getUserName(){
         return  properties.getProperty("username");
     }

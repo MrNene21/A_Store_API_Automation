@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="CategorySuite">
+    <listeners>
+        <listener class-name="org.astore.Utilities.ExtentReportManager"/>
+    </listeners>
+
+    <test name="CategoryTestSuite" verbose="1" preserve-order="true">
+        <classes>
+            <class name="org.astore.Tests.CategoryTest">
+<!--                <methods>-->
+<!--                    &lt;!&ndash; Include category-related test methods &ndash;&gt;-->
+<!--                    <include name="createParentCategory"/>-->
+<!--                    <include name="createChildCategory"/>-->
+<!--                    <include name="deleteParentCategory"/>-->
+<!--                    <include name="returnCategories"/>-->
+<!--                    <include name="createEmptyCategoryName"/>-->
+<!--                    <include name="verifyLessThanThreeCategoryName"/>-->
+<!--                    <include name="verifyMoreThanEightyCategoryName"/>-->
+<!--                </methods>-->
+            </class>
+        </classes>
+    </test>
+</suite>
